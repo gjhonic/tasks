@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html v-bind:lang="config.lang">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Tasks</title>
+    <title>{{ config.projectName }}</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -22,7 +22,7 @@
 
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Custom jumbotron</h1>
+        <h1 class="display-5 fw-bold">Custom</h1>
         <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
         <button class="btn btn-primary btn-lg" type="button">Add task</button>
       </div>
@@ -46,7 +46,7 @@
     </div>
 
     <footer class="pt-3 mt-4 text-muted border-top">
-      &copy; {{ config. }}
+      &copy; {{ config.author }}
     </footer>
   </div>
 </main>
