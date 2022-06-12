@@ -1,6 +1,6 @@
 <?php
 
-class Task {
+class Comment {
     public int $id;
     public string $name;
     public int $status_id;

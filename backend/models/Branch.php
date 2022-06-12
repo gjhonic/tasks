@@ -1,10 +1,14 @@
 <?php
 
-class Task {
-    public int $id;
+require_once '../config/db.php';
+
+/* @var $db PDO */
+class Branch
+{
+    public PDO $db;
+
+    public int $id = 0;
     public string $name;
-    public int $status_id;
-    public int $branch_id;
     public string $created_at;
     public string $updated_at;
 
