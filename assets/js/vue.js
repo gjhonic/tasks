@@ -13,24 +13,34 @@ let app = new Vue({
         url_update_tasks: '../backend/actions/update-task.php',
         url_delete_tasks: '../backend/actions/delete-task.php',
         //Данные
-        tasks: [],
+        tasksData: [],
         property: '',
     },
+    computed: {
+        Tasks() {
+            return this.tasksData;
+        },
+    },
     methods: {
-        loadTasks() {
+        loadTasks(callback) {
             fetch(this.url_get_tasks, {
                 method: "GET",
             }).then(response => response.json()).then(data => {
                 if (data.error === false) {
-                    this.tasks = data.tasks;
+                    this.tasksData = data.tasks;
                 }
 
-                console.log(this.tasks);
+                console.log(this.tasksData);
+
+                if (typeof callback !== 'undefined') {
+                    let timerId = setTimeout(function () {
+                        callback();
+                    }, 100);
+                }
             });
         }
     },
     mounted() {
         this.loadTasks();
-        console.log(123);
     },
 });
