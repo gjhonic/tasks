@@ -9,16 +9,21 @@ let app = new Vue({
         },
         //Ссылки
         url_get_tasks: '../backend/actions/get-tasks.php',
+        url_get_branches: '../backend/actions/get-branches.php',
         url_create_tasks: '../backend/actions/create-task.php',
         url_update_tasks: '../backend/actions/update-task.php',
         url_delete_tasks: '../backend/actions/delete-task.php',
         //Данные
         tasksData: [],
+        branchesData: [],
         property: '',
     },
     computed: {
         Tasks() {
             return this.tasksData;
+        },
+        Branches() {
+            return this.branchesData;
         },
     },
     methods: {
@@ -35,12 +40,30 @@ let app = new Vue({
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
                         callback();
-                    }, 100);
+                    }, 500);
+                }
+            });
+        },
+        loadBranches(callback) {
+            fetch(this.url_get_branches, {
+                method: "GET",
+            }).then(response => response.json()).then(data => {
+                if (data.error === false) {
+                    this.branchesData = data.branches;
+                }
+
+                console.log(this.branchesData);
+
+                if (typeof callback !== 'undefined') {
+                    let timerId = setTimeout(function () {
+                        callback();
+                    }, 500);
                 }
             });
         }
     },
     mounted() {
         this.loadTasks();
+        this.loadBranches();
     },
 });

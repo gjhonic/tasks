@@ -1,8 +1,8 @@
 <?php
 
-require_once '../config/db.php';
-
-/* @var $db PDO */
+/**
+ * Класс git ветки
+ */
 class Branch
 {
     public PDO $db;
