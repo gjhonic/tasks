@@ -27,6 +27,21 @@ class Status {
     }
 
     /**
+     * Возвращает Id-ки статусов
+     * @return array
+     */
+    public static function getStatusIds(): array
+    {
+        return [
+            self::STATUS_NEW,
+            self::STATUS_ACTIVE,
+            self::STATUS_TEST,
+            self::STATUS_PAUSE,
+            self::STATUS_CLOSED,
+        ];
+    }
+
+    /**
      * Возвращает статус
      * @param int $id
      * @return string

@@ -26,14 +26,16 @@
         </header>
 
         <div class="p-5 mb-4 bg-light rounded-3">
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-2">
                 <h1 class="display-5 fw-bold">Opa :)</h1>
                 <p class="col-md-8 fs-4">Here you can add tasks, comment, set the status.</p>
             </div>
         </div>
 
         <p>
-            <button class="btn btn-success">Create Task</button>
+            <button class="btn btn-success">Create task</button>
+            <button class="btn btn-success">Create branch</button>
+            <button class="btn btn-primary">Show branches</button>
         </p>
 
 
@@ -41,8 +43,11 @@
             <thead class="table-dark">
             <tr>
                 <th>№</th>
+                <th>Number</th>
                 <th>Name</th>
                 <th>Branch</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -50,6 +55,12 @@
                 <tr>
                     <td>
                         {{ idTask }}
+                    </td>
+                    <td>
+                        {{ itemTask.title }}
+                    </td>
+                    <td>
+                        {{ itemTask.title }}
                     </td>
                     <td>
                         {{ itemTask.title }}

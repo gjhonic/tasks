@@ -1,7 +1,10 @@
 <?php
 
+include_once 'Status.php';
+
 class Task {
     public int $id;
+    public string $number;
     public string $name;
     public int $status_id;
     public int $branch_id;
@@ -24,6 +27,10 @@ class Task {
         }
 
         if (trim($this->name) === '') {
+            return false;
+        }
+
+        if (!in_array($this->status_id, Status::getStatusIds())) {
             return false;
         }
 
