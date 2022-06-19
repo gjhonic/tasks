@@ -11,6 +11,7 @@ let app = new Vue({
         url_get_tasks: '../backend/actions/get-tasks.php',
         url_get_branches: '../backend/actions/get-branches.php',
         url_create_tasks: '../backend/actions/create-task.php',
+        url_create_branch: '../backend/actions/create-branch.php',
         url_update_tasks: '../backend/actions/update-task.php',
         url_delete_tasks: '../backend/actions/delete-task.php',
         //Данные
