@@ -2,11 +2,7 @@
 
 require_once 'core/libs/functions.php';
 
-$routes = [
-    '' => 'index',
-    'index' => 'index',
-    'workspace' => 'workspace',
-];
+$routes =
 
 $query = substr($_SERVER['REDIRECT_URL'], 1);
 

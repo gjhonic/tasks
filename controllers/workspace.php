@@ -1,3 +1,3 @@
 <?php
 
-require_once 'views/workspace.html';
+require_once ROOT_PATH . '/views/workspace.php';
