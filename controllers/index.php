@@ -1,3 +1,3 @@
 <?php
 
-require_once ROOT_PATH . '/views/index.php';
+require_once ROOT_PATH . '/views/index.html';
