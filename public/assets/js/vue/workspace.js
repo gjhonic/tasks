@@ -9,6 +9,7 @@ let app = new Vue({
         },
         //Модалки
         showModalItemTask: false,
+        showModalItemBranch: false,
         //Ссылки
         url_get_tasks: '../backend/actions/get-tasks.php',
         url_get_branches: '../backend/actions/get-branches.php',

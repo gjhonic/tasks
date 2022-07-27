@@ -34,12 +34,13 @@
 
         <p>
             <button class="btn btn-success" @click="showModalItemTask = true">Create task</button>
-            <button class="btn btn-success">Create branch</button>
+            <button class="btn btn-success" @click="showModalItemBranch = true">Create branch</button>
             <button class="btn btn-primary">Show branches</button>
         </p>
 
         <!--Модалки-->
         <modal-item-task v-if="showModalItemTask" @close="showModalItemTask = false"></modal-item-task>
+        <modal-item-branch v-if="showModalItemBranch" @close="showModalItemBranch = false"></modal-item-branch>
 
         <table id="table_tasks" class="table table-hover table-bordered">
             <thead class="table-dark">
@@ -69,6 +70,9 @@
                     </td>
                     <td>
                         {{ itemTask.title }}
+                    </td>
+                    <td>
+
                     </td>
                 </tr>
             </template>
@@ -108,7 +112,8 @@
 
 
 <script src="assets/js/vue/workspace.js"></script>
-<?php //require_once(ROOT_PATH . '/views/workspace/item_task_modal.vue'); ?>
+<?php require_once(ROOT_PATH . '/views/workspace/item_task_modal.vue'); ?>
+<?php require_once(ROOT_PATH . '/views/workspace/item_branch_modal.vue'); ?>
 </body>
 </html>
 

@@ -2,7 +2,28 @@
 
 class App
 {
-    private $routes = [];
+
+    private static ?App $instance = null;
+
+    private array $routes = [];
+    public array $configDB = [];
+
+    private function __construct()
+    {
+    }
+
+    private function __clone()
+    {
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
     /**
      * Добавляет маршруты
@@ -11,6 +32,15 @@ class App
      */
     public function addRoutes(array $routes) {
         $this->routes = $routes;
+    }
+
+    /**
+     * Добавляет конфиг подключения к бд
+     * @param array $routes
+     * @return void
+     */
+    public function addConfigDB(array $configDB) {
+        $this->configDB = $configDB;
     }
 
     /**
@@ -28,6 +58,21 @@ class App
             } else {
                 require_once ROOT_PATH . '/public/404.html';
             }
+        }
+    }
+
+    /**
+     * Метод возвращает json данные
+     * @param array $data
+     * @param int $status
+     * @param bool $die
+     * @return void
+     */
+    public function json(array $data, int $status = 0, bool $die = true)
+    {
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        if($die) {
+            exit($status);
         }
     }
 }
