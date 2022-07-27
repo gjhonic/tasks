@@ -72,7 +72,8 @@
                         {{ itemTask.title }}
                     </td>
                     <td>
-
+                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
+                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
                     </td>
                 </tr>
             </template>
@@ -88,16 +89,17 @@
             </tr>
             </thead>
             <tbody>
-            <template v-for="(itemTask, idTask) in Tasks">
+            <template v-for="(itemBranch, numBranch) in Branches">
                 <tr>
                     <td>
-                        {{ idTask }}
+                        {{ numBranch + 1}}
                     </td>
                     <td>
-                        {{ itemTask.title }}
+                        {{ itemBranch.name }}
                     </td>
                     <td>
-                        {{ itemTask.title }}
+                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
+                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
                     </td>
                 </tr>
             </template>

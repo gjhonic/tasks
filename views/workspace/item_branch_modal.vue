@@ -9,6 +9,8 @@
       </div>
 
       <div class="modal-body">
+        <div class="alert alert-danger" role="alert" id="alert-danger-item-branch" style="display: none;">
+        </div>
         <slot name="body">
           <div class="mb-3">
             <label for="field-branch-name" class="col-form-label">Name</label>
@@ -42,14 +44,12 @@ Vue.component("modal-item-branch", {
   computed: {},
   methods: {
     open() {
-      console.log('123');
+
     },
     save() {
-      console.log('Мы сохранили');
       let name = $("#field-branch-name").val();
       let comment = $("#field-branch-comment").val();
 
-      console.log([name, comment]);
       let body = {
         name: name,
         comment: comment,
@@ -61,7 +61,12 @@ Vue.component("modal-item-branch", {
         body: JSON.stringify(body),
       }).then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if(data.status == 'success') {
+            location.reload();
+          } else {
+            $("#alert-danger-item-branch").html(data.message);
+            $("#alert-danger-item-branch").css('display', 'block');
+          }
         });
     },
   },

@@ -9,7 +9,7 @@ $pdoConnect = setConnection($app->configDB);
 if (!$pdoConnect) {
     $app->json([
         'status' => 'error',
-        'error' => 'db connection error!'
+        'message' => 'db connection error!'
     ]);
 }
 
@@ -33,5 +33,9 @@ while ($row = $stmt->fetch()) {
 }
 
 
-$app->json($dataBranches);
+$app->json([
+    'status' => 'success',
+    'message' => '',
+    'dataBranches' => $dataBranches
+]);
 

@@ -7,7 +7,7 @@ $pdoConnect = setConnection($app->configDB);
 if(!$pdoConnect) {
     $app->json([
         'status' => 'error',
-        'error' => 'db connection error!'
+        'message' => 'db connection error!'
     ]);
 }
 
@@ -18,13 +18,13 @@ if (isset($data['name'])){
     if (trim($data['name']) == '') {
         $app->json([
             'status' => 'error',
-            'error' => 'Field name is empty!'
+            'message' => 'Field name is empty!'
         ]);
     }
 } else {
     $app->json([
         'status' => 'error',
-        'error' => 'Field name is empty!'
+        'message' => 'Field name is empty!'
     ]);
 }
 
@@ -42,12 +42,12 @@ $params = [
 $stmt = $pdoConnect->prepare($query);
 if($stmt->execute($params)) {
     $app->json([
-        'status' => 'OK',
-        'error' => 'The branch was saved successfully!'
+        'status' => 'success',
+        'message' => 'The branch was saved successfully!'
     ]);
 } else {
     $app->json([
         'status' => 'error',
-        'error' => 'An error occurred saving the branch!'
+        'message' => 'An error occurred saving the branch!'
     ]);
 }

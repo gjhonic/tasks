@@ -17,6 +17,7 @@ let app = new Vue({
         url_create_branch: '../backend/actions/create-branch.php',
         url_update_tasks: '../backend/actions/update-task.php',
         url_delete_tasks: '../backend/actions/delete-task.php',
+        url_delete_branch: '../backend/actions/delete-branch.php',
         //Данные
         tasksData: [],
         branchesData: [],
@@ -52,11 +53,9 @@ let app = new Vue({
             fetch(this.url_get_branches, {
                 method: "GET",
             }).then(response => response.json()).then(data => {
-                if (data.error === false) {
-                    this.branchesData = data.branches;
+                if (data.status == 'success') {
+                    this.branchesData = data.dataBranches;
                 }
-
-                console.log(this.branchesData);
 
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
@@ -64,6 +63,27 @@ let app = new Vue({
                     }, 500);
                 }
             });
+        },
+        //Удаление записи с предупреждением
+        stopperDelete(url, id) {
+            let answer = confirm("Are you sure you want to delete this item?");
+            console.log(url + '?id=' + id);
+            if(answer == true) {
+                let body = {
+                    id: id
+                };
+                fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify(body),
+                }).then((response) => response.json())
+                    .then((data) => {
+                        if(data.status == 'success') {
+                            location.reload();
+                        } else {
+                            alert(data.message)
+                        }
+                    });
+            }
         }
     },
     mounted() {
