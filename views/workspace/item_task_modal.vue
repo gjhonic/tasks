@@ -19,6 +19,15 @@
             <input type="text" class="form-control" id="recipient-name">
           </div>
           <div class="mb-3">
+            <label for="recipient-branch" class="col-form-label">Branch</label>
+            <select class="form-select" id="recipient-branch">
+              <option value="0">Not set</option>
+              <option v-for="branch in Branches" v-bind:value="branch.id">
+                {{ branch.name }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
             <label for="field-comment" class="col-form-label">Comments</label>
             <textarea class="form-control" id="field-comment" style="height: 100px"></textarea>
           </div>
@@ -52,36 +61,38 @@ Vue.component("modal-item-task", {
     return {
     };
   },
-  computed: {},
+  computed: {
+    Branches() {
+      return app.branchesData;
+    },
+  },
   methods: {
     open() {
       console.log('123');
     },
     save() {
-      console.log('Мы сохранили');
-      /*let body = {
-        rating_bgi_id: this.rating_bgi_id,
-        plan_day: this.plan_day,
-        fact_day: this.fact_day,
+      let name = $("#field-branch-name").val();
+      let comment = $("#field-branch-comment").val();
+
+      let body = {
+        name: name,
+        comment: comment,
       };
-      let url =
-          "/index.php?module=Rating_BGI&action=save";
+      let url = app.url_create_task;
+
       fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
-      })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            if (data.error === true) {
-              Notify.showError(data.message);
-            } else {
-              Notify.showSuccess(data.message);
-              this.$emit("saved");
-              this.showModalItemTask = false;
-            }
-            BaseTemplate.hideProgress();
-          });*/
+      }).then((response) => response.json())
+        .then((data) => {
+          if(data.status == 'success') {
+            app.loadBranches();
+            app.showModalItemBranch = false;
+          } else {
+            $("#alert-danger-item-branch").html(data.message);
+            $("#alert-danger-item-branch").css('display', 'block');
+          }
+        });
     },
   },
 });

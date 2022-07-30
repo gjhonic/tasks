@@ -78,7 +78,8 @@ let app = new Vue({
                 }).then((response) => response.json())
                     .then((data) => {
                         if(data.status == 'success') {
-                            location.reload();
+                            this.loadBranches();
+                            this.loadTasks();
                         } else {
                             alert(data.message)
                         }

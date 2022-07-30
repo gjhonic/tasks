@@ -26,7 +26,7 @@
       <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" @click="$emit('close')">Close</button>
           <span class="hidden-elem">*</span>
-          <button type="button" class="btn btn-outline-primary" @click="save()">Create task</button>
+          <button type="button" class="btn btn-outline-primary" @click="save()">Create branch</button>
       </div>
     </div>
   </div>
@@ -62,7 +62,8 @@ Vue.component("modal-item-branch", {
       }).then((response) => response.json())
         .then((data) => {
           if(data.status == 'success') {
-            location.reload();
+            app.loadBranches();
+            app.showModalItemBranch = false;
           } else {
             $("#alert-danger-item-branch").html(data.message);
             $("#alert-danger-item-branch").css('display', 'block');

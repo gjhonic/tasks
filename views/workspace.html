@@ -35,76 +35,87 @@
         <p>
             <button class="btn btn-success" @click="showModalItemTask = true">Create task</button>
             <button class="btn btn-success" @click="showModalItemBranch = true">Create branch</button>
-            <button class="btn btn-primary">Show branches</button>
+            <button class="btn btn-primary" id="button-show-branches" onclick="showBlock('branches')">
+                Show branches
+            </button>
+            <button class="btn btn-primary" id="button-show-tasks" style="display: none;" onclick="showBlock('tasks')">
+                Show tasks
+            </button>
         </p>
 
         <!--Модалки-->
         <modal-item-task v-if="showModalItemTask" @close="showModalItemTask = false"></modal-item-task>
         <modal-item-branch v-if="showModalItemBranch" @close="showModalItemBranch = false"></modal-item-branch>
 
-        <table id="table_tasks" class="table table-hover table-bordered">
-            <thead class="table-dark">
-            <tr>
-                <th>№</th>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Branch</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <template v-for="(itemTask, idTask) in Tasks">
+        <div id="block-tasks">
+            <h2>Tasks</h2>
+            <table id="table_tasks" class="table table-hover table-bordered">
+                <thead class="table-dark">
                 <tr>
-                    <td>
-                        {{ idTask }}
-                    </td>
-                    <td>
-                        {{ itemTask.title }}
-                    </td>
-                    <td>
-                        {{ itemTask.title }}
-                    </td>
-                    <td>
-                        {{ itemTask.title }}
-                    </td>
-                    <td>
-                        {{ itemTask.title }}
-                    </td>
-                    <td>
-                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
-                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
-                    </td>
+                    <th>№</th>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Branch</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
-            </template>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <template v-for="(itemTask, idTask) in Tasks">
+                    <tr>
+                        <td>
+                            {{ idTask }}
+                        </td>
+                        <td>
+                            {{ itemTask.title }}
+                        </td>
+                        <td>
+                            {{ itemTask.title }}
+                        </td>
+                        <td>
+                            {{ itemTask.title }}
+                        </td>
+                        <td>
+                            {{ itemTask.title }}
+                        </td>
+                        <td>
+                            <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
+                            <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
+                        </td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </div>
 
-        <table id="table_branches" class="table table-hover table-bordered">
-            <thead class="table-dark">
-            <tr>
-                <th>№</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <template v-for="(itemBranch, numBranch) in Branches">
+        <div id="block-branches" style="display: none;">
+            <h2>Branches</h2>
+            <table id="table_branches" class="table table-hover table-bordered">
+                <thead class="table-dark">
                 <tr>
-                    <td>
-                        {{ numBranch + 1}}
-                    </td>
-                    <td>
-                        {{ itemBranch.name }}
-                    </td>
-                    <td>
-                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
-                        <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
-                    </td>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Action</th>
                 </tr>
-            </template>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <template v-for="(itemBranch, numBranch) in Branches">
+                    <tr>
+                        <td>
+                            {{ numBranch + 1}}
+                        </td>
+                        <td>
+                            {{ itemBranch.name }}
+                        </td>
+                        <td>
+                            <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
+                            <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-danger">Delete</button></span>
+                        </td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </div>
 
         <footer class="pt-3 mt-4 text-muted border-top">
             &copy; {{ config.author }}
@@ -113,7 +124,8 @@
 </main>
 
 
-<script src="assets/js/vue/workspace.js"></script>
+<script src="assets/js/vue/workspace.js" type="text/javascript"></script>
+<script src="assets/js/scripts/workspace/script.js" type="text/javascript"></script>
 <?php require_once(ROOT_PATH . '/views/workspace/item_task_modal.vue'); ?>
 <?php require_once(ROOT_PATH . '/views/workspace/item_branch_modal.vue'); ?>
 </body>
