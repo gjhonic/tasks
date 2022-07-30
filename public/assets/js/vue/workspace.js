@@ -13,10 +13,10 @@ let app = new Vue({
         //Ссылки
         url_get_tasks: '../backend/actions/get-tasks.php',
         url_get_branches: '../backend/actions/get-branches.php',
-        url_create_tasks: '../backend/actions/create-task.php',
+        url_create_task: '../backend/actions/create-task.php',
         url_create_branch: '../backend/actions/create-branch.php',
-        url_update_tasks: '../backend/actions/update-task.php',
-        url_delete_tasks: '../backend/actions/delete-task.php',
+        url_update_task: '../backend/actions/update-task.php',
+        url_delete_task: '../backend/actions/delete-task.php',
         url_delete_branch: '../backend/actions/delete-branch.php',
         //Данные
         tasksData: [],
@@ -33,14 +33,14 @@ let app = new Vue({
     },
     methods: {
         loadTasks(callback) {
+            startLoad();
             fetch(this.url_get_tasks, {
                 method: "GET",
             }).then(response => response.json()).then(data => {
-                if (data.error === false) {
-                    this.tasksData = data.tasks;
+                if (data.status == 'success') {
+                    this.tasksData = data.dataTasks;
                 }
-
-                console.log(this.tasksData);
+                endLoad();
 
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
@@ -50,13 +50,14 @@ let app = new Vue({
             });
         },
         loadBranches(callback) {
+            startLoad();
             fetch(this.url_get_branches, {
                 method: "GET",
             }).then(response => response.json()).then(data => {
                 if (data.status == 'success') {
                     this.branchesData = data.dataBranches;
                 }
-
+                endLoad();
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
                         callback();
@@ -85,6 +86,31 @@ let app = new Vue({
                         }
                     });
             }
+        },
+
+        //Возвращает имя ветки
+        getBranchName(idBranch) {
+            for(branch in this.Branches) {
+                if(this.Branches[branch].id == idBranch) {
+                    return this.Branches[branch].name;
+                }
+            }
+        },
+
+        //Возвращает название статуса
+        getStatusName(idStatus) {
+            switch(idStatus) {
+                case '1':
+                  return 'New';
+                case '2':
+                  return 'Active';
+                case '3':
+                    return 'Test';
+                case '4':
+                    return 'Pause';
+                default:
+                  return 'Not found'
+              }
         }
     },
     mounted() {

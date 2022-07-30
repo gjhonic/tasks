@@ -14,3 +14,11 @@ function showBlock(block) {
         $("#block-branches").css('display', 'block');
     }
 }
+
+function startLoad(){
+    $("#panel-load").css('display', 'block');
+}
+
+function endLoad(){
+    $("#panel-load").css('display', 'none');
+}

@@ -32,6 +32,10 @@
             </div>
         </div>
 
+        <div class="panel-load" id="panel-load" style="display: none;">
+            Идет загрузка, пж погодь...
+        </div>
+
         <p>
             <button class="btn btn-success" @click="showModalItemTask = true">Create task</button>
             <button class="btn btn-success" @click="showModalItemBranch = true">Create branch</button>
@@ -61,22 +65,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <template v-for="(itemTask, idTask) in Tasks">
+                <template v-for="(itemTask, numTask) in Tasks">
                     <tr>
                         <td>
-                            {{ idTask }}
+                            {{ numTask + 1 }}
                         </td>
                         <td>
-                            {{ itemTask.title }}
+                            {{ itemTask.number }}
                         </td>
                         <td>
-                            {{ itemTask.title }}
+                            {{ itemTask.name }}
                         </td>
                         <td>
-                            {{ itemTask.title }}
+                            {{ getBranchName(itemTask.branch) }}
                         </td>
                         <td>
-                            {{ itemTask.title }}
+                            {{ getStatusName(itemTask.status) }}
                         </td>
                         <td>
                             <span @click="stopperDelete(url_delete_branch, itemBranch.id)"><button type="button" class="btn btn-outline-primary">View</button></span>
@@ -124,8 +128,8 @@
 </main>
 
 
-<script src="assets/js/vue/workspace.js" type="text/javascript"></script>
 <script src="assets/js/scripts/workspace/script.js" type="text/javascript"></script>
+<script src="assets/js/vue/workspace.js" type="text/javascript"></script>
 <?php require_once(ROOT_PATH . '/views/workspace/item_task_modal.vue'); ?>
 <?php require_once(ROOT_PATH . '/views/workspace/item_branch_modal.vue'); ?>
 </body>
