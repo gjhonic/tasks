@@ -62,6 +62,7 @@ Vue.component("modal-item-branch", {
       }).then((response) => response.json())
         .then((data) => {
           if(data.status == 'success') {
+            panelSuccess(1, 'The branch was saved successfully!')
             app.loadBranches();
             app.showModalItemBranch = false;
           } else {

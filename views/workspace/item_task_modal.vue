@@ -70,7 +70,6 @@ Vue.component("modal-item-task", {
   },
   methods: {
     open() {
-      console.log('123');
     },
     save() {
       let number = $("#field-task-number").val();
@@ -94,6 +93,7 @@ Vue.component("modal-item-task", {
       }).then((response) => response.json())
         .then((data) => {
           if(data.status == 'success') {
+            panelSuccess(1, 'The task was saved successfully!')
             app.loadTasks();
             app.showModalItemTask = false;
           } else {

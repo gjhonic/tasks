@@ -39,8 +39,15 @@ let app = new Vue({
             }).then(response => response.json()).then(data => {
                 if (data.status == 'success') {
                     this.tasksData = data.dataTasks;
+                    endLoad();
+                    if(data.message = "Tasks not found") {
+                        panelWarning(1, "Tasks not found");
+                    }
+                } else {
+                    endLoad();
+                    panelDanger(true, 'Error loading tasks')
                 }
-                endLoad();
+
 
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
@@ -56,8 +63,15 @@ let app = new Vue({
             }).then(response => response.json()).then(data => {
                 if (data.status == 'success') {
                     this.branchesData = data.dataBranches;
+                    endLoad();
+                    if(data.message = "Branches not found") {
+                        panelWarning(1, "Branches not found");
+                    }
+                } else {
+                    endLoad();
+                    panelDanger(true, 'Error loading branches')
                 }
-                endLoad();
+
                 if (typeof callback !== 'undefined') {
                     let timerId = setTimeout(function () {
                         callback();

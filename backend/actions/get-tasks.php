@@ -11,32 +11,43 @@ if (!$pdoConnect) {
     ]);
 }
 
-$query = "SELECT * FROM `tasks`";
+try {
 
-$stmt = $pdoConnect->query($query);
-$data = $stmt->fetch();
+    $query = "SELECT * FROM `tasks`";
 
-$dataBranches = [];
+    $stmt = $pdoConnect->prepare($query);
+    $res = $stmt->execute();
+
+    if($res == false) {
+        $app->json([
+            'status' => 'success',
+            'message' => 'Tasks not found',
+            'dataBranches' => []
+        ]);
+    }
+
+    $dataBranches = [];
+
+    while ($row = $stmt->fetch()) {
+        $dataTasks[] = [
+            'id' => $row['id'],
+            'number' => $row['number'],
+            'name' => $row['name'],
+            'branch' => $row['branch'],
+            'status' => $row['status'],
+        ];
+    }
 
 
-$stmt = $pdoConnect->prepare($query);
-$stmt->execute();
-while ($row = $stmt->fetch()) {
-    $dataTasks[] = [
-        'id' => $row['id'],
-        'number' => $row['number'],
-        'name' => $row['name'],
-        'branch' => $row['branch'],
-        'comment' => $row['comment'],
-        'status' => $row['status'],
-        'created_at' => date('Y-m-d H:i:s', $row['created_at'])
-    ];
+    $app->json([
+        'status' => 'success',
+        'message' => '',
+        'dataTasks' => $dataTasks
+    ]);
+
+} catch (PDOException $e) {
+    $app->json([
+        'status' => 'error',
+        'message' => $e->getMessage(),
+    ]);
 }
-
-
-$app->json([
-    'status' => 'success',
-    'message' => '',
-    'dataTasks' => $dataTasks
-]);
-
