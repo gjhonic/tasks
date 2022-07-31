@@ -1,0 +1,70 @@
+#!/usr/bin/env php
+<?php
+
+require_once 'core/libs/functions.php';
+
+function scriptHelp(): void
+{
+    echo "  __                 __            \n";
+    echo "_/  |______    _____|  | __  ______\n";
+    echo "\   __\__  \  /  ___/  |/ / /  ___/\n";
+    echo " |  |  / __ \_\___ \|    <  \___ \ \n";
+    echo " |__| (____  /____  >__|_ \/____  >\n";
+    echo "           \/     \/     \/     \/ \n";
+    echo "COMMANDS:                                 \n";
+    echo "  init: create tables                     \n";
+    echo "  seed: fills tables with test data       \n";
+    echo "  help: displays a list of commands       \n";
+
+    echo "\n";
+}
+
+function showResultScript(bool $param): void
+{
+    if ($param) {
+        echo "The script was executed successfully\n";
+    } else {
+        echo "The script failed with an error\n";
+    }
+}
+
+if (!isset($argv[1])) {
+    scriptHelp();
+    exit();
+}
+
+$command = $argv[1];
+
+if ($command === 'help') {
+    scriptHelp();
+    exit();
+}
+
+$data = require_once ROOT_PATH . '/.env';
+if($data == null) {
+    echo "file .env not found\n";
+    echo "please create a .env file and copy the contents from .env.sample into it\n";
+    exit();
+}
+
+if(!isset($data['bd_config'])) {
+    echo "the configuration for connecting to the database is not specified\n";
+    exit();
+}
+
+require_once 'core/libs/db.php';
+
+if ($command === 'init') {
+    require_once ROOT_PATH . '/migrations/init.php';
+    showResultScript(scriptInit($data['bd_config']));
+    exit();
+} else if ($command === 'seed') {
+    require_once ROOT_PATH . '/migrations/seed.php';
+    showResultScript(scriptSeed($data['bd_config']));
+    exit();
+} else {
+    echo "The command is not defined!\n";
+    exit();
+}
+
+
