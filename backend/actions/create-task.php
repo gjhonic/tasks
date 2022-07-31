@@ -14,6 +14,7 @@ if(!$pdoConnect) {
 $data = file_get_contents('php://input');
 $data = json_decode($data, true);
 
+
 if (isset($data['number'])){
     if (trim($data['number']) == '') {
         $app->json([
@@ -42,26 +43,38 @@ if (isset($data['name'])){
     ]);
 }
 
-$number = $data['number'];
+$pdoConnect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$number = (int)$data['number'];
 $name = $data['name'];
-$branch = $data['branch']??null;
+$branch_id = (int)$data['branch']??null;
 $comment = $data['comment']??'';
-$status = $data['status']??1;
+$status = (int)$data['status']??1;
 $createdAt = strtotime("now");
 
-$query = "INSERT INTO `tasks` (`number`, `name`, `branch`, `comment`, `status`, `created_at`)
- VALUES (:number, :name, :branch, :comment, :status, :created_at)";
-$params = [
-    ':number' => $number,
-    ':name' => $name,
-    ':branch' => $branch,
-    ':comment' => $comment,
-    ':status' => $status,
-    ':created_at' => $createdAt
-];
-$stmt = $pdoConnect->prepare($query);
+try {
+    $query = "INSERT INTO `tasks` (`number`, `name`, `branch_id`, `comment`, `status`, `created_at`, `updated_at`)
+     VALUES (:number, :name, :branch_id, :comment, :status, :created_at, :updated_at)";
+    $params = [
+        ':number' => $number,
+        ':name' => $name,
+        ':branch_id' => $branch_id,
+        ':comment' => $comment,
+        ':status' => $status,
+        ':created_at' => $createdAt,
+        ':updated_at' => $createdAt
+    ];
+    $stmt = $pdoConnect->prepare($query);
+    $res = $stmt->execute($params);
 
-if($stmt->execute($params)) {
+} catch (PDOException $e) {
+    $app->json([
+        'status' => 'error',
+        'message' => $e->getMessage()
+    ]);
+}
+
+if($res) {
     $app->json([
         'status' => 'success',
         'message' => 'The task was saved successfully!'

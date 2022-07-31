@@ -40,9 +40,6 @@ let app = new Vue({
                 if (data.status == 'success') {
                     this.tasksData = data.dataTasks;
                     endLoad();
-                    if(data.message = "Tasks not found") {
-                        panelWarning(1, "Tasks not found");
-                    }
                 } else {
                     endLoad();
                     panelDanger(true, 'Error loading tasks')
@@ -64,9 +61,6 @@ let app = new Vue({
                 if (data.status == 'success') {
                     this.branchesData = data.dataBranches;
                     endLoad();
-                    if(data.message = "Branches not found") {
-                        panelWarning(1, "Branches not found");
-                    }
                 } else {
                     endLoad();
                     panelDanger(true, 'Error loading branches')
